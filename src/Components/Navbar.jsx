@@ -3,6 +3,7 @@ import { Link } from "react-scroll";
 import Button from "../layouts/Button";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import Contact from "../models/Contact";
+import { Link as RouterLink } from "react-router-dom";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
@@ -83,7 +84,13 @@ const Navbar = () => {
             </Link>
           </nav>
 
-          <div className=" hidden lg:flex">
+          <div className=" hidden lg:flex gap-3">
+          <RouterLink
+    to="/login"
+    className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out"
+  >
+    Login
+  </RouterLink>
             <button
               className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out"
               onClick={openForm}
@@ -91,6 +98,9 @@ const Navbar = () => {
               Contact Us
             </button>
           </div>
+
+
+
 
           {showForm && <Contact closeForm={closeForm} />}
 
@@ -157,8 +167,18 @@ const Navbar = () => {
           >
             Blog
           </Link>
+          <div className=" lg:hidden">
+          <RouterLink
+    to="/login"
+    className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out"
+  >
+    Login
+  </RouterLink>
+</div>
+          
 
           <div className=" lg:hidden">
+            
             <button
               className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out"
               onClick={openForm}
