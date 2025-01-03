@@ -87,7 +87,7 @@ const Footer = () => {
               support@care.com
             </Link>
             <Link to="/" spy={true} smooth={true} duration={500}>
-              +123-456-7890
+              03370352040
             </Link>
           </nav>
         </div>
@@ -95,7 +95,7 @@ const Footer = () => {
       <div>
         <p className=" text-center py-4">
           @copyright developed by
-          <span className=" text-hoverColor"> champion programmers</span> | All
+          <span className=" text-hoverColor"> Bilal vakani</span> | All
           rights reserved
         </p>
       </div>
