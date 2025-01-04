@@ -36,6 +36,7 @@
 // export default Registered;
 
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -113,9 +114,9 @@ const Register = () => {
           Register
         </button>
         <p className="text-center mt-4">       you have an account?{" "}
-       <a href="/login" className="text-blue-500 hover:underline">
-            Login here
-          </a>
+        <Link to="/login" className="text-blue-500 hover:underline">
+    Register here
+  </Link>
         </p>
       </form>
       
