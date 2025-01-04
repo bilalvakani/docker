@@ -123,6 +123,8 @@
 
 // export default Login;
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
 
 const Login = () => {
   // Using useState to manage form inputs
@@ -182,11 +184,11 @@ const Login = () => {
           Login
         </button>
         <p className="text-center mt-4">
-          Don't have an account?{" "}
-          <a href="/registered" className="text-blue-500 hover:underline">
-            Register here
-          </a>
-        </p>
+  Don't have an account?{" "}
+  <Link to="/registered" className="text-blue-500 hover:underline">
+    Register here
+  </Link>
+</p>
       </form>
     </div>
   );
