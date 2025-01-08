@@ -1,61 +1,56 @@
-// import React from "react";
-
-// const Registered = () => {
-//   return (
-//     <div className="flex justify-center items-center h-screen bg-gray-100">
-//       <div className="bg-white p-6 rounded shadow-md w-full max-w-md">
-//         <h2 className="text-2xl font-bold text-center mb-4">Register Now</h2>
-//         <form className="space-y-4">
-//           <input
-//             type="text"
-//             placeholder="Full Name"
-//             className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-//           />
-//           <input
-//             type="email"
-//             placeholder="Email Address"
-//             className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-//           />
-//           <input
-//             type="password"
-//             placeholder="Password"
-//             className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-//           />
-//           <button
-//             type="submit"
-//             className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition"
-//           >
-//             Register
-//           </button>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Registered;
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate  } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
-    email: "",
     password: "",
   });
+  const navigate = useNavigate(); // Initialize navigate
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted", formData);
-    alert("Registration Successful!");
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      // Check the Content-Type header to decide how to parse the response
+      const contentType = response.headers.get("Content-Type");
+      let data;
+  
+      if (contentType && contentType.includes("application/json")) {
+        data = await response.json(); // Parse as JSON
+      } else {
+        data = await response.text(); // Parse as plain text
+      }
+  
+      if (response.ok) {
+        console.log("Registration successful:", data);
+        alert(data.message || "Registration successful!");
+        navigate("/login")
+      } else {
+        console.error("Registration failed:", data);
+        alert(`Error: ${data.message || data || "Registration failed"}`);
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+      alert("An error occurred during registration. Please try again.");
+    }
   };
-
+  
   return (
     <div className="flex items-center justify-center min-h-screen bg-backgroundColor p-4">
       <form
@@ -79,20 +74,7 @@ const Register = () => {
             className="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-hoverColor"
           />
         </div>
-        <div>
-          <label htmlFor="email" className="block font-medium text-gray-700">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-hoverColor"
-          />
-        </div>
+
         <div>
           <label htmlFor="password" className="block font-medium text-gray-700">
             Password
@@ -113,13 +95,13 @@ const Register = () => {
         >
           Register
         </button>
-        <p className="text-center mt-4">       you have an account?{" "}
-        <Link to="/login" className="text-blue-500 hover:underline">
-    Register here
-  </Link>
+        <p className="text-center mt-4">
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-500 hover:underline">
+            Login here
+          </Link>
         </p>
       </form>
-      
     </div>
   );
 };
