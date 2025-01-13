@@ -95,7 +95,7 @@ const Footer = () => {
       <div>
         <p className=" text-center py-4">
           @copyright developed by
-          <span className=" text-hoverColor"> Bilal vakani|| Omaiama Qamar ||Amna|| Alina</span> | All
+          <span className=" text-hoverColor"> CodeCoves</span> | All
           rights reserved
         </p>
       </div>
